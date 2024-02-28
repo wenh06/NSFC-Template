@@ -1,6 +1,9 @@
 # 国家自然科学基金申请书正文模板（主要面上项目）
 
 [![compile](https://github.com/wenh06/NSFC-Template/actions/workflows/compile.yml/badge.svg)](https://github.com/wenh06/NSFC-Template/actions/workflows/compile.yml)
+[![license](https://img.shields.io/github/license/wenh06/NSFC-Template?style=flat-square)](LICENSE)
+![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/wenh06/NSFC-Template)
+![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/wenh06/NSFC-Template/latest)
 
 主要基于 [NSFC-LaTeX-Template](https://github.com/Ruzim/NSFC-application-template-latex) 修改而来，感谢原作者。
 
