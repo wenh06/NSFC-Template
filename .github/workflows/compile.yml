@@ -1,4 +1,4 @@
-# This workflow will build the docs using Sphinx and check for errors.
+# This workflow will build the docs using latexmk
 
 name: Compile with latexmk
 
