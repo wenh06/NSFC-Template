@@ -1,5 +1,7 @@
-# 国家自然科学基金申请书正文（主要面上项目）
-============================================
+# 国家自然科学基金申请书正文模板（主要面上项目）
+================================================
+
+[![compile](https://github.com/wenh06/NSFC-Template/actions/workflows/compile.yml/badge.svg)](https://github.com/wenh06/NSFC-Template/actions/workflows/compile.yml)
 
 主要基于 [NSFC-LaTeX-Template](https://github.com/Ruzim/NSFC-application-template-latex) 修改而来，感谢原作者。
 
@@ -7,9 +9,9 @@
 
 1. 将各个部分拆分成单独的文件，尤其是第一部分“立项依据与研究内容”，方便协作，以及分别统计字数。因为包含标题，所以字数统计会稍微多一些。
 
-2. 利用 `biblatex` 和 `biber` 处理参考文献 (`\usepackage[backend=biber, style=gb7714-2015]{biblatex}`)，可以用 `\parencite` 等命令引用文献。
+2. 利用 `biblatex` 和 `biber` 处理参考文献 (`\usepackage[backend=biber, style=gb7714-2015, maxbibnames=5]{biblatex}`)，可以用 `\parencite` 等命令引用文献。
 
-3. 利用 [`texcount`](https://www.sys.kth.se/docs/texlive/texmf-dist/doc/support/texcount/TeXcount.pdf) 工具以及 [`currfile`](https://ctan.org/pkg/currfile) 宏包统计各部分字数。 `currfile` 宏包也被用于动态路径拼接。
+3. 利用 [`texcount`](https://ctan.org/pkg/texcount) 工具以及 [`currfile`](https://ctan.org/pkg/currfile) 宏包统计各部分字数。 `currfile` 宏包也被用于动态路径拼接。
 
 目前来看，面上项目、青年项目、重点项目的申请书格式基本都是一样的，只是字数要求不同，此外青年项目没有 `主要参与者`，面上项目页边距稍小。
 
