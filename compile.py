@@ -96,7 +96,14 @@ def main():
         f"""latexmk -xelatex --enable-pipes --shell-escape -f -outdir="{str(project_dir)}" """
         f"""-jobname="{tex_entry_file.stem}" "{str(tex_entry_file)}" """
     )
-    exitcode, _ = execute_cmd(cmd)
+    try:
+        exitcode, _ = execute_cmd(cmd)
+    except KeyboardInterrupt:
+        # clean up
+        cmd = f"""latexmk -C -outdir="{str(project_dir)}" "{str(tex_entry_file)}" """
+        execute_cmd(cmd, raise_error=False)
+        print("Compilation cancelled.")
+        exitcode = 1
     if exitcode != 0:
         sys.exit(exitcode)
     generated_pdf_file = project_dir / f"{main_tex_file.stem}.pdf"
