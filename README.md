@@ -1,5 +1,4 @@
 # 国家自然科学基金申请书正文模板（主要面上项目）
-================================================
 
 [![compile](https://github.com/wenh06/NSFC-Template/actions/workflows/compile.yml/badge.svg)](https://github.com/wenh06/NSFC-Template/actions/workflows/compile.yml)
 
