@@ -109,7 +109,7 @@ def main():
     generated_pdf_file = project_dir / f"{main_tex_file.stem}.pdf"
     suffix = time.strftime("%Y%m%d-%H%M%S")
     if main_tex_file.stem == "main" and handout:
-        backup_pdf_file = build_dir / f"NSFC申请书示例-{suffix}.pdf"
+        backup_pdf_file = build_dir / f"NSFC-Template-{suffix}.pdf"
     else:
         backup_pdf_file = build_dir / f"{main_tex_file.stem}.pdf"
     shutil.copy(generated_pdf_file, backup_pdf_file)

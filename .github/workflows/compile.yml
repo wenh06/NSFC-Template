@@ -177,6 +177,7 @@ jobs:
           csquotes
           currfile
           texcount
+          cleveref
     - name: Install latexmk and extra software
       run: |
         perl -v
