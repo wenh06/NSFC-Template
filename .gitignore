@@ -42,6 +42,7 @@ dist
 *.synctex
 *.synctex.gz\(busy\)
 *.synctex.gz
+*.spl
 
 tensorboard_data
 .ipynb_checkpoints
