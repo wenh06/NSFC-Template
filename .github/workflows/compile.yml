@@ -178,6 +178,7 @@ jobs:
           currfile
           texcount
           cleveref
+          lmodern
     - name: Install latexmk and extra software
       run: |
         perl -v

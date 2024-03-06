@@ -2,7 +2,7 @@
   a4paper,
   12pt,
   UTF8,
-  AutoFakeBold=2,
+  AutoFakeBold=2.5,
   fontset=custom,
 ]{ctexart}  % 见文件 ctex-fontset-custom.def
 \usepackage[slantfont, boldfont]{xeCJK}
@@ -51,8 +51,19 @@
   \markboth{#1}{#1}}
 \setlength\bibitemsep{\itemsep}
 
+% % 【著者-出版年制】文献表缩进控制
+% \setlength{\bibitemindent}{0em} % bibitemindent表示一条文献中第一行相对后面各行的缩进
+% \setlength{\bibhang}{0pt} % 著者-出版年制中 bibhang 表示的各行起始位置到页边的距离
+% %
+% % 【顺序编码制】文献表缩进控制
+% % 调整顺序标签与文献内容的间距
+% \setlength{\biblabelsep}{2mm}
+% \setlength{\bibitemindent}{0pt}
+% \setlength{\biblabelextend}{0pt}
+
 \usepackage{enumitem}
 \usepackage{ulem}
+\usepackage{lmodern}
 
 % \newCJKfontfamily\simfang{simfang.ttf}[Extension=.ttf, Path=fonts/]
 % \newCJKfontfamily\simhei{simhei.ttf}[Extension=.ttf, Path=fonts/]
