@@ -1,5 +1,11 @@
-\documentclass[12pt,UTF8,AutoFakeBold=2,fontset=custom,a4paper]{ctexart}  % 见文件 ctex-fontset-custom.def
-\usepackage[slantfont,boldfont]{xeCJK}
+\documentclass[
+  a4paper
+  12pt,
+  UTF8,
+  AutoFakeBold=2,
+  fontset=custom,
+]{ctexart}  % 见文件 ctex-fontset-custom.def
+\usepackage[slantfont, boldfont]{xeCJK}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[dvipsnames]{xcolor}
@@ -26,7 +32,18 @@
 % \usepackage{gbt7714}
 % \usepackage{natbib}
 % \setlength{\bibsep}{0.0pt}
-\usepackage[backend=biber, style=gb7714-2015, maxbibnames=5]{biblatex}
+\usepackage[
+  backend=biber,
+  style=gb7714-2015,
+  % style=gb7714-2015ay,
+  gbnamefmt=lowercase,  % 作者姓名大小写，"uppercase" 表示全大写，"lowercase" 表示由输入信息确定不做改变，以及其他一些选项，未指定时默认为 "uppercase"
+  gbalign=left,  % 参考文献条目标签的对齐方式，未指定时默认为 right
+  gbstrict=true,  % 避免输出 bib 文件中多余的域信息，比如 language 等，未指定时默认为 true
+  gbtype=true,  % 是否输出题名后面的文献类型和载体标识符，比如 [J]. [M]. [D]. 等，未指定时默认为 true
+  gbcitelabel=bracketqj,  % 正文文献标注中的全半角标点和括号，bracket表示采用方括号，qj表示采用全角标点，未指定时默认为 bracket
+  gbbiblabel=bracketqj,  % 参考文献表中的标注标点，bracket表示采用方括号，qj表示采用全角标点，未指定时默认为 bracket
+  maxbibnames=5,
+]{biblatex}
 \addbibresource[location=local]{references.bib}
 \AtBeginBibliography{\smaller[1]}
 \defbibheading{bibliography}[\bibname]{%
