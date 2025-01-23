@@ -28,7 +28,7 @@ python compile.py [filename]
 [filename] 是文件名，可以不写，默认为 `main.tex`。报错停止编译了按 `ctrl+c` 退出。以上文件包含了用 `latexmk` 编译
 
 ```bash
-latexmk -xelatex --enable-pipes --shell-escape -f -outdir=build [filename]
+latexmk -xelatex --shell-escape -f -outdir=build [filename]
 ```
 
 以及清理中间文件的命令

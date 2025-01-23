@@ -100,7 +100,7 @@ def main():
 
     # specifying outdir for latexmk may result in errors: https://tex.stackexchange.com/q/323820
     cmd = (
-        f"""latexmk -xelatex --enable-pipes --shell-escape -f -outdir="{str(project_dir)}" """
+        f"""latexmk -xelatex --shell-escape -f -outdir="{str(project_dir)}" """
         f"""-jobname="{tex_entry_file.stem}" "{str(tex_entry_file)}" """
     )
     try:
