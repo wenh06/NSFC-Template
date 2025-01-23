@@ -45,7 +45,7 @@ def create_application(program_type: str, program_name: str):
     if program_dir.exists():
         raise FileExistsError(f"The program directory {str(program_dir.relative_to(_PROJECT_DIR))} already exists")
 
-    if not (program_dir / f"{current_year}.tex").exists():
+    if not (program_dir.parent / f"{current_year}.tex").exists():
         warnings.warn(
             f"The template for the program type '{program_type.split('-')[0]}' "
             "might not be up-to-date. Please check the template files at the official website."
