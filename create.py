@@ -16,8 +16,11 @@ where `program-type` is one of the following:
 
 """
 
+import re
 import shutil
 import sys
+import warnings
+from datetime import datetime
 from pathlib import Path
 
 _PROJECT_DIR = Path(__file__).resolve().parent
@@ -35,10 +38,18 @@ def create_application(program_type: str, program_name: str):
     }.get(program_type, program_type)
     program_type = f"{program_type}-program"
 
+    current_year = datetime.now().year
+
     # Create a new directory
     program_dir = _PROJECT_DIR / program_type / program_name
     if program_dir.exists():
         raise FileExistsError(f"The program directory {str(program_dir.relative_to(_PROJECT_DIR))} already exists")
+
+    if not (program_dir / f"{current_year}.tex").exists():
+        warnings.warn(
+            f"The template for the program type '{program_type.split('-')[0]}' "
+            "might not be up-to-date. Please check the template files at the official website."
+        )
 
     template_dir = _PROJECT_DIR / program_type / "template"
     # copy everything from the template directory to the new directory
@@ -53,9 +64,17 @@ def create_application(program_type: str, program_name: str):
     )
     part1_agg_file.write_text(part1_agg_file_content)
 
+    # find total_agg_file in program_dir, which is of the form "year.tex"
+    total_agg_file = [file for file in program_dir.parent.iterdir() if re.search("^\\d{4}\\.tex$", file.name) is not None][0]
+
     print(
         f"Created a new application for {program_type.replace('-', ' ')} '{program_name}' "
         f"in the folder {str(program_dir.relative_to(_PROJECT_DIR))}"
+    )
+    print(
+        "Please make corresponding modifications in the "
+        f"aggregation file {str(total_agg_file.relative_to(_PROJECT_DIR))}, "
+        "and include it in the main file main.tex."
     )
 
 
