@@ -82,14 +82,21 @@ def main():
     if shutil.which("latexmk") is None:
         raise RuntimeError("latexmk is not installed.")
 
-    if len(sys.argv) not in [1, 2]:
-        raise RuntimeError("Usage: python compile.py [tex_entry_file]")
     if len(sys.argv) == 1:
         tex_entry_file = main_tex_file
         handout = True
-    else:
+    elif len(sys.argv) in [2, 3]:
         tex_entry_file = Path(sys.argv[1]).expanduser().resolve()
         handout = False
+    else:
+        raise RuntimeError("Usage: python compile.py [tex_entry_file] [output_file_name]")
+
+    if len(sys.argv) == 3:
+        output_file_name = sys.argv[2]
+        if not Path(output_file_name).suffix == ".pdf":
+            output_file_name = output_file_name + ".pdf"
+    else:
+        output_file_name = None
 
     # specifying outdir for latexmk may result in errors: https://tex.stackexchange.com/q/323820
     cmd = (
@@ -108,8 +115,10 @@ def main():
         sys.exit(exitcode)
     generated_pdf_file = project_dir / f"{tex_entry_file.stem}.pdf"
     suffix = time.strftime("%Y%m%d-%H%M%S")
-    if tex_entry_file.stem == main_tex_file.stem and handout:
-        backup_pdf_file = build_dir / f"NSFC-Template-{suffix}.pdf"
+    if output_file_name is not None:
+        backup_pdf_file = build_dir / output_file_name
+    elif tex_entry_file.stem == main_tex_file.stem and handout:
+        backup_pdf_file = build_dir / f"NSFC-申请书-{suffix}.pdf"
     else:
         backup_pdf_file = build_dir / f"{tex_entry_file.stem}.pdf"
     shutil.copy(generated_pdf_file, backup_pdf_file)
