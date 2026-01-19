@@ -1,0 +1,34 @@
+{
+    "latex-workshop.latex.autoBuild.run": "onFileChange",
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk-xelatex-custom",
+            "command": "latexmk",
+            "args": [
+                "-xelatex",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-shell-escape",
+                "-f",
+                "main.tex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "XeLaTeX (Auto)",
+            "tools": [
+                "latexmk-xelatex-custom"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "first",
+    "latex-workshop.latex.autoClean.run": "onFailed", 
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux", "*.bbl", "*.blg", "*.idx", "*.ind", "*.lof", "*.lot", 
+        "*.out", "*.toc", "*.acn", "*.acr", "*.alg", "*.glg", "*.glo", "vrb",
+        "*.gls", "*.ist", "*.fls", "*.log", "*.fdb_latexmk", "*.synctex.gz"
+    ],
+    "latex-workshop.view.pdf.viewer": "tab"
+}

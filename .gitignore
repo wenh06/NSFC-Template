@@ -37,6 +37,7 @@ dist
 *.abs
 *.sav
 *.bcf
+*.bcf-SAVE-ERROR
 *.xdv
 *.synctex\(busy\)
 *.synctex
@@ -177,7 +178,7 @@ dmypy.json
 .pyre/
 
 .vs
-.vscode
+# .vscode
 .idea
 .DS_Store
 
@@ -194,3 +195,5 @@ temp/
 !build
 build/*
 !build/.keep
+
+/*.pdf

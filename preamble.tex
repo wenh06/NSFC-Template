@@ -1,12 +1,5 @@
-\documentclass[
-  a4paper,
-  12pt,
-  UTF8,
-  AutoFakeBold=2.5,
-  fontset=custom,
-]{ctexart}  % 见文件 ctex-fontset-custom.def
-\usepackage[slantfont, boldfont]{xeCJK}
 \usepackage[T1]{fontenc}
+\usepackage[slantfont, boldfont]{xeCJK}
 \usepackage[english]{babel}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{graphicx}
@@ -14,14 +7,27 @@
 \usepackage{amssymb}
 \usepackage{wasysym}
 \usepackage{pifont}
-\usepackage[unicode, hidelinks]{hyperref}
+\usepackage{titlesec}
+
+\definecolor{bluecite}{RGB}{4,50,255}
+\definecolor{blueNSFC}{RGB}{0,112,192}
+% \usepackage[unicode,hidelinks]{hyperref}
+\usepackage[
+  unicode,
+  colorlinks=true,
+  allcolors=black,
+  linkcolor=bluecite,
+  urlcolor=black,
+  citecolor=bluecite,
+]{hyperref}
+
 \usepackage{geometry}
 \usepackage{relsize}
 \usepackage{csquotes}
 \usepackage{currfile}
 \usepackage{tikz}
-\usetikzlibrary{shapes, arrows.meta, positioning, fit}
-\usepackage{cleveref}
+\usetikzlibrary{shapes, arrows.meta, positioning, calc, fit, backgrounds, shadows}
+\usepackage[nameinlink]{cleveref}
 % customize reference names
 \crefname{figure}{图}{图}
 \crefname{table}{表}{表}
@@ -40,11 +46,19 @@
   gbalign=left,  % 参考文献条目标签的对齐方式，未指定时默认为 right
   gbstrict=true,  % 避免输出 bib 文件中多余的域信息，比如 language 等，未指定时默认为 true
   gbtype=true,  % 是否输出题名后面的文献类型和载体标识符，比如 [J]. [M]. [D]. 等，未指定时默认为 true
-  gbcitelabel=bracketqj,  % 正文文献标注中的全半角标点和括号，bracket表示采用方括号，qj表示采用全角标点，未指定时默认为 bracket
-  gbbiblabel=bracketqj,  % 参考文献表中的标注标点，bracket表示采用方括号，qj表示采用全角标点，未指定时默认为 bracket
+  gbcitelabel=bracket,  % 正文文献标注中的全半角标点和括号，bracket表示采用方括号，qj表示采用全角标点，未指定时默认为 bracket
+  gbbiblabel=bracket,  % 参考文献表中的标注标点，bracket表示采用方括号，qj表示采用全角标点，未指定时默认为 bracket
   maxbibnames=5,
 ]{biblatex}
-\addbibresource[location=local]{references.bib}
+% \addbibresource[location=local]{references.bib}
+\addbibresource{references/references-settings.bib}
+\addbibresource{references/references-crypt.bib}
+\addbibresource{references/references-fl.bib}
+\addbibresource{references/references-math.bib}
+\addbibresource{references/references-med.bib}
+\addbibresource{references/references-misc.bib}
+\addbibresource{references/references-opt-dl-ml.bib}
+\addbibresource{references/references-psp.bib}
 \AtBeginBibliography{\smaller[1]}
 \defbibheading{bibliography}[\bibname]{%
   \subsubsection*{\larger[1] \kaishu #1}%
@@ -61,9 +75,33 @@
 % \setlength{\bibitemindent}{0pt}
 % \setlength{\biblabelextend}{0pt}
 
+\usepackage{bibentry}  %  full citation in the body of the text (turn off natbib if use it)
+% \nobibliography*  % https://tex.stackexchange.com/a/195327/163881
+
 \usepackage{enumitem}
 \usepackage{ulem}
 \usepackage{lmodern}
+\usepackage{circledsteps}
+
+
+% https://tex.stackexchange.com/a/91070/163881
+% \usepackage{libertine}
+% \usepackage{pgf} % for the calculation
+% % \libcirc and \libcircblk display their '0' if the parameter is out of range
+% \newcommand{\libcirc}[1]{\pgfmathparse{
+%   ifthenelse(#1 > 0 && #1 < 21, Hex(9311+#1), Hex(9450)
+% }\libertineGlyph{uni\pgfmathresult}}
+% \newcommand{\libcircdbl}[1]{\pgfmathparse{Hex(9460+#1)}\libertineGlyph{uni\pgfmathresult}}
+% \newcommand{\libcircblk}[1]{\pgfmathparse{
+%   ifthenelse(#1 > 0 && #1 < 11, Hex(10101+#1),
+%       ifthenelse(#1 > 10 && #1 < 21, Hex(9450-10+#1),
+%           Hex(9471)
+%       )
+%   )
+% }\libertineGlyph{uni\pgfmathresult}}
+
+
+\newcommand{\doubleuline}[1]{\uline{\uline{#1}}}
 
 % \newCJKfontfamily\simfang{simfang.ttf}[Extension=.ttf, Path=fonts/]
 % \newCJKfontfamily\simhei{simhei.ttf}[Extension=.ttf, Path=fonts/]
@@ -83,8 +121,33 @@
 %\geometry{left=2.95cm,right=2.95cm,top=2.54cm,bottom=2.54cm}
 \geometry{left=3.00cm,right=3.07cm,top=2.67cm,bottom=3.27cm}
 \pagestyle{empty}
-\setcounter{secnumdepth}{-2} %不让那些section和subsection自带标号，标号格式自己掌握
-\definecolor{MsBlue}{RGB}{0,112,192} %Ms Word 的蓝色和latex xcolor包预定义的蓝色不一样。通过屏幕取色得到。
+
+
+% https://tex.stackexchange.com/a/60212/163881
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+{3.25ex \@plus1ex \@minus.2ex}%
+{-1em}%
+{\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+{3.25ex \@plus1ex \@minus .2ex}%
+{-1em}%
+{\normalfont\normalsize\bfseries}}
+
+\setcounter{secnumdepth}{-3} %不让那些section和subsection自带标号，标号格式自己掌握
+
+% \definecolor{blueNSFC}{RGB}{0,112,192} %Ms Word 的蓝色和latex xcolor包预定义的蓝色不一样。通过屏幕取色得到。
 % Renaming floats with babel
 \addto\captionsenglish{
     \renewcommand{\contentsname}{目录}
