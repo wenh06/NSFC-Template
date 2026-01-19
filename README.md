@@ -35,7 +35,7 @@ python compile.py [filename]
 [filename] 是文件名，可以不写，默认为 `main.tex`。报错停止编译了按 `ctrl+c` 退出。以上文件包含了用 `latexmk` 编译
 
 ```bash
-latexmk -xelatex --enable-pipes --shell-escape -f -outdir=build [filename]
+latexmk -xelatex --shell-escape -f -outdir=build [filename]
 ```
 
 以及清理中间文件的命令
@@ -46,7 +46,28 @@ latexmk -C [filename]
 
 以及一些文件名的替换等操作。
 
-### 2. 数字数
+### 2. 创建新项目申请书
+
+使用如下命令可以快速创建一个新的项目申请书：
+
+```bash
+python create.py [project-type] [project-name]
+```
+
+其中 `program-type` 是项目类型，包括
+
+- `youth`: 青年基金，同义词 `y`
+- `general`: 面上项目，同义词 `g`
+- `key`: 重点项目，同义词 `k`
+- `dedicated`: 专项项目，同义词 `d`
+
+查看帮助：
+
+```bash
+python create.py help
+```
+
+### 3. 数字数
 
 ```bash
 texcount -inc -sum -0 -utf8 -ch -template={SUM} [filename]
@@ -62,7 +83,7 @@ texcount -inc -sum -0 -utf8 -ch -template={SUM} general-program/template/1-立�
 
 biblatex 会报一些警告，但是不影响编译。可以忽略。
 
-```
+```text
 BibTeX subsystem: warning: comma(s) at end of name (removing)
 ```
 
