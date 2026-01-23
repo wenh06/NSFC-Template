@@ -22,7 +22,9 @@
 | 项目类型           | 已更新2026版       |
 |-------------------|--------------------|
 | 面上项目           | :heavy_check_mark: |
-| 青年C             | :x:                |
+| 青年C             | :xheavy_check_mark: |
+| 重点项目           | :x:                |
+| 专项项目           | :x:                |
 
 ## 一些有用的命令
 
@@ -58,8 +60,8 @@ python create.py [project-type] [project-name]
 
 - `youth`: 青年基金，同义词 `y`
 - `general`: 面上项目，同义词 `g`
-- `key`: 重点项目，同义词 `k`
-- `dedicated`: 专项项目，同义词 `d`
+- ~~`key`: 重点项目，同义词 `k`~~
+- ~~`dedicated`: 专项项目，同义词 `d`~~
 
 查看帮助：
 

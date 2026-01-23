@@ -5,6 +5,7 @@ dist
 *.aux
 *.bak
 *.bbl
+*.bbl-SAVE-ERROR
 *.blg
 *.dvi
 *.glo

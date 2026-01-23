@@ -19,7 +19,6 @@ where `program-type` is one of the following:
 import re
 import shutil
 import sys
-import warnings
 from datetime import datetime
 from pathlib import Path
 
@@ -28,59 +27,65 @@ _PROGRAM_TYPES = ["youth", "general", "key", "dedicated", "y", "g", "k", "d"]
 
 
 def create_application(program_type: str, program_name: str):
+    # check program type
     if program_type not in _PROGRAM_TYPES:
-        raise ValueError(f"Invalid program type. Choose from {_PROGRAM_TYPES}")
-    program_type = {
+        print(f"Invalid program type. Choose from {_PROGRAM_TYPES}")
+        sys.exit(1)
+
+    raw_type = {
         "y": "youth",
         "g": "general",
         "k": "key",
         "d": "dedicated",
     }.get(program_type, program_type)
-    program_type = f"{program_type}-program"
 
-    current_year = datetime.now().year
+    # abort for not-yet-updated templates
+    if raw_type in ["key", "dedicated"]:
+        print(f"Error: The template for '{raw_type}' program has not been updated yet.")
+        print("Creation aborted.")
+        sys.exit(1)
 
-    # Create a new directory
-    program_dir = _PROJECT_DIR / program_type / program_name
+    full_program_type = f"{raw_type}-program"
+
+    # set up paths
+    program_dir = _PROJECT_DIR / full_program_type / program_name
+    template_dir = _PROJECT_DIR / full_program_type / "template"
+
+    # check existence of target directory
     if program_dir.exists():
         raise FileExistsError(f"The program directory {str(program_dir.relative_to(_PROJECT_DIR))} already exists")
 
-    if not (program_dir.parent / f"{current_year}.tex").exists():
-        warnings.warn(
-            f"The template for the program type '{program_type.split('-')[0]}' "
-            "might not be up-to-date. Please check the template files at the official website."
-        )
+    if not template_dir.exists():
+        raise FileNotFoundError(f"Template directory not found: {template_dir}")
 
-    template_dir = _PROJECT_DIR / program_type / "template"
-    # copy everything from the template directory to the new directory
+    # copy template
     shutil.copytree(template_dir, program_dir)
 
-    # modify the file "1-立项依据与研究内容/aggregate.tex" in the new directory
-    # by replacing "\input{program_type/template/" with "\input{program_type/program_name/"
-    part1_agg_file = program_dir / "1-立项依据与研究内容" / "aggregate.tex"
-    part1_agg_file_content = part1_agg_file.read_text()
-    part1_agg_file_content = part1_agg_file_content.replace(
-        f"\\input{{{program_type}/template/", f"\\input{{{program_type}/{program_name}/"
-    )
-    part1_agg_file.write_text(part1_agg_file_content)
+    # Get the year aggregation file for prompt (look for 20xx.tex in the sibling directory)
+    try:
+        total_agg_file = [file for file in program_dir.parent.iterdir() if re.search(r"^\d{4}\.tex$", file.name)][0]
+        agg_file_rel = str(total_agg_file.relative_to(_PROJECT_DIR))
+    except IndexError:
+        agg_file_rel = f"{datetime.now().year}.tex"
 
-    # find total_agg_file in program_dir, which is of the form "year.tex"
-    total_agg_file = [file for file in program_dir.parent.iterdir() if re.search("^\\d{4}\\.tex$", file.name) is not None][0]
-
-    print(
-        f"Created a new application for {program_type.replace('-', ' ')} '{program_name}' "
-        f"in the folder {str(program_dir.relative_to(_PROJECT_DIR))}"
-    )
-    print(
-        "Please make corresponding modifications in the "
-        f"aggregation file {str(total_agg_file.relative_to(_PROJECT_DIR))}, "
-        "and include it in the main file main.tex."
-    )
+    # Output success and operation prompt
+    print("-" * 60)
+    print(f"Created a new application for {raw_type} '{program_name}'")
+    print(f"Location: {str(program_dir.relative_to(_PROJECT_DIR))}")
+    print("-" * 60)
+    print("Action Required:")
+    print(f"Please modify the aggregation file: {agg_file_rel}")
+    print("Add your new files to the main list, for example:")
+    print(f"  \\input{{{full_program_type}/{program_name}/1-立项依据}}")
+    print(f"  \\input{{{full_program_type}/{program_name}/2-研究内容}}")
+    print("  ...")
+    print("-" * 60)
 
 
 if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == "help":
-        print(__doc__)
+        print("Usage: python create.py [program-type] [program-name]")
+        print("Types: youth(y), general(g), key(k), dedicated(d)")
         sys.exit(0)
     elif len(sys.argv) != 3:
         print("Usage: python create.py [program-type] [program-name]")
@@ -89,9 +94,5 @@ if __name__ == "__main__":
 
     program_type = sys.argv[1]
     program_name = sys.argv[2]
-
-    if program_type not in ["youth", "general", "key", "dedicated", "y", "g", "k", "d"]:
-        print(f"Invalid program type. Choose from {_PROGRAM_TYPES}")
-        sys.exit(1)
 
     create_application(program_type, program_name)
