@@ -110,7 +110,6 @@ jobs:
           kvoptions
           iftex
           ltxcmds
-          l3backend
           l3kernel
           l3packages
           courier
